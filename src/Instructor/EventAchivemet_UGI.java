@@ -19,7 +19,7 @@ public class EventAchivemet_UGI extends javax.swing.JFrame {
 
     Connection conn = null;
     ResultSet rs = null;
-    
+    int x=0;
     public EventAchivemet_UGI() {
         initComponents();
         conn = Database.DBConnection.getDbConnect().connect();
