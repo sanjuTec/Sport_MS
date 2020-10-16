@@ -19,7 +19,7 @@ public class EventAchivemet_UGI extends javax.swing.JFrame {
 
     Connection conn = null;
     ResultSet rs = null;
-    int x=0;
+    
     public EventAchivemet_UGI() {
         initComponents();
         conn = Database.DBConnection.getDbConnect().connect();
@@ -268,48 +268,56 @@ public class EventAchivemet_UGI extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 102));
         jLabel1.setText("Year");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 102));
         jLabel2.setText("Event");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 102));
         jLabel6.setText("point");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 102));
         jLabel7.setText("discription");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
 
         point_textfeild.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        getContentPane().add(point_textfeild, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 64, -1));
+        getContentPane().add(point_textfeild, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 64, -1));
 
         discription_textarea.setColumns(20);
         discription_textarea.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         discription_textarea.setRows(5);
         jScrollPane1.setViewportView(discription_textarea);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, -1, 60));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 350, -1, 60));
 
-        Faculty_ComboBox.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        Faculty_ComboBox.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         Faculty_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Faculty" }));
         Faculty_ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Faculty_ComboBoxActionPerformed(evt);
             }
         });
-        getContentPane().add(Faculty_ComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, -1, -1));
+        getContentPane().add(Faculty_ComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 140, -1));
 
-        sport_ComboBox.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        sport_ComboBox.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         sport_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Sport" }));
-        getContentPane().add(sport_ComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, -1, -1));
+        getContentPane().add(sport_ComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 140, -1));
 
-        place_ComboBox.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        place_ComboBox.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         place_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select place", "1st", "2nd", "3rd" }));
-        getContentPane().add(place_ComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, -1, -1));
+        place_ComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                place_ComboBoxActionPerformed(evt);
+            }
+        });
+        getContentPane().add(place_ComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 140, 20));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel8.setText("Score Panel");
@@ -317,7 +325,7 @@ public class EventAchivemet_UGI extends javax.swing.JFrame {
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_close_window_30px.png"))); // NOI18N
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 0, 40, 40));
-        getContentPane().add(Year_box, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 80, 30));
+        getContentPane().add(Year_box, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 80, 30));
 
         interfaculty_radiobtn.setText("Inter Faculty");
         interfaculty_radiobtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -325,7 +333,7 @@ public class EventAchivemet_UGI extends javax.swing.JFrame {
                 interfaculty_radiobtnMouseClicked(evt);
             }
         });
-        getContentPane().add(interfaculty_radiobtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 100, -1));
+        getContentPane().add(interfaculty_radiobtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 100, -1));
 
         inter_university_radiobtn.setText("Inter University");
         inter_university_radiobtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -333,7 +341,7 @@ public class EventAchivemet_UGI extends javax.swing.JFrame {
                 inter_university_radiobtnMouseClicked(evt);
             }
         });
-        getContentPane().add(inter_university_radiobtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
+        getContentPane().add(inter_university_radiobtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, -1, -1));
 
         slug_radiobtn.setText("SLUG");
         slug_radiobtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -341,30 +349,41 @@ public class EventAchivemet_UGI extends javax.swing.JFrame {
                 slug_radiobtnMouseClicked(evt);
             }
         });
-        getContentPane().add(slug_radiobtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 100, -1));
+        getContentPane().add(slug_radiobtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 100, -1));
 
+        university_Comb.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         university_Comb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select University", " " }));
         university_Comb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 university_CombActionPerformed(evt);
             }
         });
-        getContentPane().add(university_Comb, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 140, 30));
+        getContentPane().add(university_Comb, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 140, -1));
 
+        fac_uni_validate_lable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        fac_uni_validate_lable.setForeground(new java.awt.Color(255, 51, 51));
         fac_uni_validate_lable.setText("fac_uni_validate_lable");
-        getContentPane().add(fac_uni_validate_lable, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
+        getContentPane().add(fac_uni_validate_lable, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, -1, -1));
 
+        sport_validate_lable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        sport_validate_lable.setForeground(new java.awt.Color(255, 51, 51));
         sport_validate_lable.setText("sport_validate_lable");
-        getContentPane().add(sport_validate_lable, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, -1, -1));
+        getContentPane().add(sport_validate_lable, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, -1, -1));
 
+        place_validate_lable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        place_validate_lable.setForeground(new java.awt.Color(255, 51, 51));
         place_validate_lable.setText("place_validate_lable");
-        getContentPane().add(place_validate_lable, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, -1));
+        getContentPane().add(place_validate_lable, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, -1, -1));
 
+        point_validate_lable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        point_validate_lable.setForeground(new java.awt.Color(255, 51, 51));
         point_validate_lable.setText("point_validate_lable");
-        getContentPane().add(point_validate_lable, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 340, -1, -1));
+        getContentPane().add(point_validate_lable, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, -1, -1));
 
+        year_validate_lable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        year_validate_lable.setForeground(new java.awt.Color(255, 51, 51));
         year_validate_lable.setText("year_validate_lable");
-        getContentPane().add(year_validate_lable, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, -1, -1));
+        getContentPane().add(year_validate_lable, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
 
         insert_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/insert.png"))); // NOI18N
         insert_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -372,7 +391,7 @@ public class EventAchivemet_UGI extends javax.swing.JFrame {
                 insert_buttonMouseClicked(evt);
             }
         });
-        getContentPane().add(insert_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 450, -1, -1));
+        getContentPane().add(insert_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 430, -1, -1));
 
         reset_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/reset_button.png"))); // NOI18N
         reset_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -380,7 +399,7 @@ public class EventAchivemet_UGI extends javax.swing.JFrame {
                 reset_buttonMouseClicked(evt);
             }
         });
-        getContentPane().add(reset_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, -1, -1));
+        getContentPane().add(reset_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 430, -1, -1));
 
         score_table.setBackground(new java.awt.Color(204, 255, 255));
         score_table.setBorder(new javax.swing.border.MatteBorder(null));
@@ -406,7 +425,8 @@ public class EventAchivemet_UGI extends javax.swing.JFrame {
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 640, 200));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Session bg.png"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabel9.setText("  ");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, -1));
 
         setSize(new java.awt.Dimension(1100, 500));
         setLocationRelativeTo(null);
@@ -454,6 +474,10 @@ public class EventAchivemet_UGI extends javax.swing.JFrame {
     private void reset_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reset_buttonMouseClicked
         DefaultValues();
     }//GEN-LAST:event_reset_buttonMouseClicked
+
+    private void place_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_place_ComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_place_ComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
