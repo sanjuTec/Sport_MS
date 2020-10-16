@@ -47,9 +47,17 @@ public class Login extends javax.swing.JFrame {
         lblUsername = new javax.swing.JLabel();
         lblUsername1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        txtUserName1 = new javax.swing.JTextField();
+        txtUserName = new javax.swing.JTextField();
+        pwdPassword = new javax.swing.JPasswordField();
         lblBackgroud = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblLogin.setFont(new java.awt.Font("Trebuchet MS", 0, 36)); // NOI18N
@@ -63,8 +71,14 @@ public class Login extends javax.swing.JFrame {
 
         lblUsername.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         lblUsername.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblUsername.setText("Login");
-        getContentPane().add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 359, -1, 40));
+        lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsernameMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 359, 360, 40));
 
         lblUsername1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblUsername1.setText("User Name");
@@ -74,11 +88,50 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_close_window_30px.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 0, 40, 40));
 
+        txtUserName1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtUserName1.setForeground(new java.awt.Color(204, 0, 0));
+        txtUserName1.setText("Enter your password");
+        txtUserName1.setBorder(null);
+        txtUserName1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserName1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtUserName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, 360, 30));
+
+        txtUserName.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtUserName.setBorder(null);
+        getContentPane().add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 182, 360, 30));
+
+        pwdPassword.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        getContentPane().add(pwdPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, 360, 30));
+
         lblBackgroud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/7.png"))); // NOI18N
         getContentPane().add(lblBackgroud, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblUsernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseClicked
+       String username=txtUserName.getText();
+       char password[]=pwdPassword.getPassword();
+       
+       if (username.isEmpty())
+           txtUserName1.setForeground(new java.awt.Color(204, 0, 0));
+           txtUserName.setText("Enter your Username");
+        if (password.length==0) {
+            txtUserName1.setVisible(true);
+            
+        }
+    }//GEN-LAST:event_lblUsernameMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+      txtUserName1.setVisible(false);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void txtUserName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserName1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserName1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -122,5 +175,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblUsername1;
+    private javax.swing.JPasswordField pwdPassword;
+    private javax.swing.JTextField txtUserName;
+    private javax.swing.JTextField txtUserName1;
     // End of variables declaration//GEN-END:variables
 }
