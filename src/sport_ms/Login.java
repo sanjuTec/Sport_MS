@@ -42,7 +42,11 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtUserName = new javax.swing.JTextField();
+        pwdPassword = new javax.swing.JPasswordField();
         lblLogin = new javax.swing.JLabel();
+        lblErruser = new javax.swing.JLabel();
+        lblErrpw = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
         lblUsername = new javax.swing.JLabel();
         lblUsername1 = new javax.swing.JLabel();
@@ -50,12 +54,44 @@ public class Login extends javax.swing.JFrame {
         lblBackgroud = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtUserName.setBorder(null);
+        getContentPane().add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 180, 350, 30));
+
+        pwdPassword.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        pwdPassword.setBorder(null);
+        getContentPane().add(pwdPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, 360, 30));
 
         lblLogin.setFont(new java.awt.Font("Trebuchet MS", 0, 36)); // NOI18N
         lblLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogin.setText("LogIn");
         getContentPane().add(lblLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 80, 140, 40));
+
+        lblErruser.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblErruser.setForeground(new java.awt.Color(255, 0, 0));
+        lblErruser.setText("Enter Your Username");
+        lblErruser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblErruserMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblErruser, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 180, 350, 30));
+
+        lblErrpw.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblErrpw.setForeground(new java.awt.Color(255, 0, 0));
+        lblErrpw.setText("Enter Your Password");
+        lblErrpw.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblErrpwMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblErrpw, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 260, 350, 30));
 
         lblPassword.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblPassword.setText("Password");
@@ -63,8 +99,14 @@ public class Login extends javax.swing.JFrame {
 
         lblUsername.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         lblUsername.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblUsername.setText("Login");
-        getContentPane().add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 359, -1, 40));
+        lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsernameMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 359, 360, 40));
 
         lblUsername1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblUsername1.setText("User Name");
@@ -79,6 +121,41 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblUsernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseClicked
+        String username = txtUserName.getText();
+        char password[] = pwdPassword.getPassword();
+
+        if (username.equals("")) {
+            txtUserName.setVisible(false);
+            lblErruser.setVisible(true);
+        } else if (password.length == 0) {
+            pwdPassword.setVisible(false);
+            lblErrpw.setVisible(true);
+        }
+        
+        if((!username.equals("")) && password.length>0){
+        Login_Portal lp = new Login_Portal();
+        lp.UserType(username, password);
+        }
+    }//GEN-LAST:event_lblUsernameMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        lblErruser.setVisible(false);
+        lblErrpw.setVisible(false);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void lblErruserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblErruserMouseClicked
+        lblErruser.setVisible(false);
+        txtUserName.setVisible(true);
+        txtUserName.requestFocusInWindow();
+    }//GEN-LAST:event_lblErruserMouseClicked
+
+    private void lblErrpwMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblErrpwMouseClicked
+        lblErrpw.setVisible(false);
+        pwdPassword.setVisible(true);
+        pwdPassword.requestFocusInWindow();
+    }//GEN-LAST:event_lblErrpwMouseClicked
 
     /**
      * @param args the command line arguments
@@ -106,7 +183,7 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -118,9 +195,13 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblBackgroud;
+    private javax.swing.JLabel lblErrpw;
+    private javax.swing.JLabel lblErruser;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblUsername1;
+    private javax.swing.JPasswordField pwdPassword;
+    private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
 }
