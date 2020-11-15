@@ -17,8 +17,8 @@ import java.util.logging.Logger;
  */
 public class DBConnection {
     private static DBConnection dbConnect = new DBConnection();
-
     private DBConnection() {
+        
     }
 
     public static DBConnection getDbConnect() {
@@ -31,11 +31,31 @@ public class DBConnection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con=DriverManager.getConnection("jdbc:mysql://localhost:3306/sportms","root","");
+            
+//            String url ="jdbc:mysql://sportms-lserver.mysql.database.azure.com:3306/{your_database}?useSSL=true&requireSSL=false";
+//            con = DriverManager.getConnection(url, "Dineth@sportms-lserver", "Yasuru@234");
+            System.out.println("connected");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return con;
+    }
+    
+    public static void main(String[] args) {
+          Connection con=null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/sportms","root","");
+            
+//            String url ="jdbc:mysql://sportms-lserver.mysql.database.azure.com:3306/sportms?useSSL=true&requireSSL=false"; 
+//            con = DriverManager.getConnection(url, "Dineth@sportms-lserver", "Yasuru@234");
+            System.out.println("connected");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("not");
+        } catch (SQLException ex) {
+            System.out.println("no");
+        }
     }
 }
