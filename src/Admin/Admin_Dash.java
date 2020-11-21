@@ -740,13 +740,20 @@ public class Admin_Dash extends javax.swing.JFrame {
                 }
             }
         });
+        
+        
 //        
     }
     private void openMenu(String id){
         User_customize uc=new User_customize();
         uc.setId(id);
-    
+       
+        uc.loguserdata();
+        uc.setVisible(true);
+        this.dispose();
     }
+    
+   
 
     /**
      * @param args the command line arguments

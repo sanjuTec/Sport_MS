@@ -5,26 +5,63 @@
  */
 package Admin;
 
+import Database.DBConnection;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import org.apache.commons.validator.routines.EmailValidator;
+import sport_ms.IdValidator;
+import sport_ms.Logged_User;
+
 /**
  *
  * @author dinet
  */
 public class User_customize extends javax.swing.JFrame {
 
-    String id=null;
+    String id = null;
+    int count = 0, index = 1;
+    Boolean availability = false;
 
     public void setId(String id) {
         this.id = id;
         System.out.println(id);
     }
-    
-    
-    
+    int horizontal = 10, vertical = 10;
+    Connection con = null;
+
     /**
      * Creates new form User_customize
      */
     public User_customize() {
         initComponents();
+        con = DBConnection.getDbConnect().connect();
+
+    }
+
+    public void loguserdata() {
+        Logged_User loguser = new Logged_User();
+        loguser.fill(id);
+        txtEmail.setText(loguser.getEmail());
+        txtNIC.setText(loguser.getNic());
+        txtContact.setText(String.valueOf(loguser.getContact()));
+        txtPwd.setText(loguser.getPassword());
+        lblID.setText(loguser.getUserId());
+        txtUserName.setText(loguser.getUserName());
+        availability = loguser.getAvail();
+        System.out.println(availability);
+
     }
 
     /**
@@ -36,15 +73,34 @@ public class User_customize extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        lblDOB = new javax.swing.JLabel();
+        lblInstructor = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        PnlSpace = new javax.swing.JPanel();
+        lblPw = new javax.swing.JLabel();
+        txtPwd = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtNIC = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtContact = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        DOB = new org.jdatepicker.JDatePicker();
         txtUserName = new javax.swing.JTextField();
-        lblProPic = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblID = new javax.swing.JLabel();
+        lblSave = new javax.swing.JLabel();
+        lblToggle = new javax.swing.JLabel();
+        lblDiscard = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1100, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -53,19 +109,193 @@ public class User_customize extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 230, 30));
+        lblDOB.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        lblDOB.setForeground(new java.awt.Color(255, 255, 255));
+        lblDOB.setText("Pw");
+        jPanel1.add(lblDOB, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 60, 30));
+
+        lblInstructor.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblInstructor.setText("Instructor");
+        lblInstructor.setBorder(null);
+        lblInstructor.setOpaque(false);
+        lblInstructor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblInstructorMouseClicked(evt);
+            }
+        });
+        lblInstructor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lblInstructorActionPerformed(evt);
+            }
+        });
+        lblInstructor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lblInstructorKeyPressed(evt);
+            }
+        });
+        jPanel1.add(lblInstructor, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 110, -1));
+
+        PnlSpace.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jScrollPane2.setViewportView(PnlSpace);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 460, 340));
+
+        lblPw.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        lblPw.setForeground(new java.awt.Color(255, 255, 255));
+        lblPw.setText("Pw");
+        jPanel1.add(lblPw, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 60, 30));
+
+        txtPwd.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtPwd.setBorder(null);
+        txtPwd.setOpaque(false);
+        txtPwd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtPwdMouseClicked(evt);
+            }
+        });
+        txtPwd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPwdActionPerformed(evt);
+            }
+        });
+        txtPwd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPwdKeyPressed(evt);
+            }
+        });
+        jPanel1.add(txtPwd, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 210, 30));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("NIC");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 60, 30));
+
+        txtNIC.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtNIC.setBorder(null);
+        txtNIC.setOpaque(false);
+        txtNIC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNICMouseClicked(evt);
+            }
+        });
+        txtNIC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNICActionPerformed(evt);
+            }
+        });
+        txtNIC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNICKeyPressed(evt);
+            }
+        });
+        jPanel1.add(txtNIC, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 210, 30));
+
+        jLabel2.setBackground(new java.awt.Color(0, 102, 153));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("User Id");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 60, 30));
+
+        txtContact.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtContact.setBorder(null);
+        txtContact.setOpaque(false);
+        txtContact.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtContactMouseClicked(evt);
+            }
+        });
+        txtContact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContactActionPerformed(evt);
+            }
+        });
+        txtContact.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContactKeyPressed(evt);
+            }
+        });
+        jPanel1.add(txtContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 410, 30));
+
+        txtEmail.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtEmail.setBorder(null);
+        txtEmail.setOpaque(false);
+        txtEmail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtEmailMouseClicked(evt);
+            }
+        });
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtEmailKeyPressed(evt);
+            }
+        });
+        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 420, 30));
+
+        DOB.setBackground(new java.awt.Color(255, 255, 255));
+        DOB.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        DOB.setShowYearButtons(true);
+        DOB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DOBActionPerformed(evt);
+            }
+        });
+        jPanel1.add(DOB, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 230, 20));
 
         txtUserName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtUserName.setForeground(new java.awt.Color(255, 255, 255));
+        txtUserName.setBorder(null);
+        txtUserName.setOpaque(false);
         txtUserName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUserNameActionPerformed(evt);
             }
         });
-        jPanel1.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 440, 30));
-        jPanel1.add(lblProPic, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 70, 130, 130));
+        jPanel1.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 440, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Session bg.png"))); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Contact");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 60, 40));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Email");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 60, 30));
+
+        lblID.setBackground(new java.awt.Color(255, 255, 255));
+        lblID.setText("jLabel3");
+        lblID.setOpaque(true);
+        jPanel1.add(lblID, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 120, 30));
+
+        lblSave.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblSave.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSave.setText("Save and Exit");
+        jPanel1.add(lblSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 430, 140, 40));
+
+        lblToggle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Switch_On_75px.png"))); // NOI18N
+        lblToggle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblToggleMouseClicked(evt);
+            }
+        });
+        jPanel1.add(lblToggle, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 340, 80, 70));
+
+        lblDiscard.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblDiscard.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDiscard.setText("Discard");
+        lblDiscard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDiscardMouseClicked(evt);
+            }
+        });
+        jPanel1.add(lblDiscard, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 430, 140, 40));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Instructor customize.jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -78,19 +308,246 @@ public class User_customize extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void getSportDetails() {
+        String sql = "select * from sport, coordinator where sport.sportId=coordinator.sport";
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet res = stmt.executeQuery(sql);
+
+            while (res.next()) {
+                String sportname = res.getString(2);
+                create_ins_sport_card(sportname, "major");
+
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(User_customize.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String allsportsql="select * from sport,coordinator  where coordinator.instructorID!='"+lblID.getText()+"' && coordinator.sport=sport.`sportId`;";
+        try {
+            Statement allotherstmt=con.createStatement();
+            ResultSet allotherres=allotherstmt.executeQuery(allsportsql);
+            
+            while (allotherres.next()) {                
+                String sportname = allotherres.getString(2);
+                System.out.println(sportname);
+                create_ins_sport_card(sportname, "other");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(User_customize.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+    }
+
+    private void create_ins_sport_card(String sportname,String priority) {
+//        JLabel jLabel7 = new javax.swing.JLabel();
+//        jLabel7.setBackground(new java.awt.Color(114, 104, 254));
+//        jLabel7.setText("sport Icon");
+//        jLabel7.setOpaque(true);
+//
+//        JLabel jLabel6 = new javax.swing.JLabel();
+//        jLabel6.setBackground(new java.awt.Color(0, 102, 255));
+//        jLabel6.setForeground(new java.awt.Color(0, 153, 255));
+//        jLabel6.setText("sport Name");
+//        jLabel6.setOpaque(true);
+//
+//        JLabel jLabel8 = new javax.swing.JLabel();
+//        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_toggle_on_50px_1.png"))); // NOI18N
+//
+//        JPanel jPanel4 = new javax.swing.JPanel();
+//        //jPanel4.add(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE);
+//        PnlSpace.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 440, 80));
+//        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 60, 60));
+//        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 250, 14));
+//        jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 130, 50, 50));
+//        //jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 420, 50));
+
+        System.out.println("add vuna");
+
+        JLabel lblCount = new JLabel();
+        JLabel lblAvatarME = new JLabel();
+        JPanel pnlCard = new JPanel();
+        JLabel lblSport = new JLabel();
+        JLabel lblToggle = new JLabel();
+
+        lblCount.setText(String.valueOf(index));
+        index++;
+        lblCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCount.setFont(new java.awt.Font("Tahoma", 1, 14));
+        lblCount.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblSport.setText(sportname);
+        lblSport.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblSport.setForeground(new java.awt.Color(255, 255, 255));
+
+        pnlCard = new javax.swing.JPanel();
+        
+        if (priority.equals("major")) {
+             pnlCard.setBackground(new java.awt.Color(0, 102, 153));
+        }
+        else{
+            pnlCard.setBackground(new java.awt.Color(150, 90, 103));
+            System.out.println("other data added");
+        }
+       
+
+        pnlCard.setPreferredSize(new java.awt.Dimension(420, 50));
+        pnlCard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        System.out.println("methana inne");
+        //jScrollPane1.setViewportView(PnlSpace);
+        PnlSpace.add(pnlCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(horizontal, vertical, 420,50));
+// Code of sub-components and layout - not shown here
+        lblAvatarME.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_cricket_game_45px.png")));
+        lblToggle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_toggle_on_50px_1.png")));
+
+        pnlCard.add(lblCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 80, 32));
+        pnlCard.add(lblAvatarME, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 5, 80, -1));
+        pnlCard.add(lblSport, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 15, 220, -1));
+
+        pnlCard.add(lblToggle, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 60, 35));
+       
+        vertical += 60;
+        
+         lblToggle.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e){
+                if(e.getClickCount()==1){
+                    System.out.println(sportname);
+                }
+            }
+        });
+        
+    }
+
+
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
         System.out.println(id);
+        txtUserName.setEditable(false);
+        if (availability == true) {
+            count = 1;
+        } else {
+            count = 0;
+        }
+
+        if (count % 2 == 0) {
+            lblToggle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Switch_Off_75px.png"))); // NOI18N
+        } else {
+            lblToggle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Switch_On_75px.png"))); // NOI18N
+        }
+        getSportDetails();
     }//GEN-LAST:event_formWindowOpened
 
     private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserNameActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEmailMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailMouseClicked
+
+    private void txtEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String email = isValidEmail(txtEmail.getText());
+            System.out.println(email);
+        }
+    }//GEN-LAST:event_txtEmailKeyPressed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowActivated
+
+    private void txtContactMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtContactMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContactMouseClicked
+
+    private void txtContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContactActionPerformed
+
+    private void txtContactKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContactKeyPressed
+
+    private void txtNICMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNICMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNICMouseClicked
+
+    private void txtNICActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNICActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNICActionPerformed
+
+    private void txtNICKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNICKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            IdValidator idvalid = new IdValidator();
+            idvalid.setId(txtNIC.getText());
+        }
+    }//GEN-LAST:event_txtNICKeyPressed
+
+    private void txtPwdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPwdMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPwdMouseClicked
+
+    private void txtPwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPwdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPwdActionPerformed
+
+    private void txtPwdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPwdKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPwdKeyPressed
+
+    private void lblInstructorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInstructorMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblInstructorMouseClicked
+
+    private void lblInstructorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblInstructorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblInstructorActionPerformed
+
+    private void lblInstructorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblInstructorKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblInstructorKeyPressed
+
+    private void DOBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DOBActionPerformed
+
+    private void lblToggleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblToggleMouseClicked
+        count++;
+        if (count % 2 == 0) {
+            lblToggle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Switch_Off_75px.png"))); // NOI18N
+        } else {
+            lblToggle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Switch_On_75px.png"))); // NOI18N
+        }
+    }//GEN-LAST:event_lblToggleMouseClicked
+
+    private void lblDiscardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDiscardMouseClicked
+        new Admin_Dash().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lblDiscardMouseClicked
+
+    private String isValidEmail(String email) {
+        boolean resault = EmailValidator.getInstance().isValid(email);
+        if (resault == true) {
+            return email;
+        } else {
+            return "invalid";
+        }
+
+    }
 
     /**
      * @param args the command line arguments
@@ -103,7 +560,7 @@ public class User_customize extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -128,10 +585,27 @@ public class User_customize extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
+    private org.jdatepicker.JDatePicker DOB;
+    private javax.swing.JPanel PnlSpace;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblProPic;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblDOB;
+    private javax.swing.JLabel lblDiscard;
+    private javax.swing.JLabel lblID;
+    private javax.swing.JTextField lblInstructor;
+    private javax.swing.JLabel lblPw;
+    private javax.swing.JLabel lblSave;
+    private javax.swing.JLabel lblToggle;
+    private javax.swing.JTextField txtContact;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtNIC;
+    private javax.swing.JTextField txtPwd;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
 }

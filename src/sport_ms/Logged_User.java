@@ -31,6 +31,7 @@ public class Logged_User {
     String email = null;
     int contact = 0;
     String nic = null;
+    Boolean avail=false;
 
     public String getUserName() {
         return userName;
@@ -38,6 +39,10 @@ public class Logged_User {
 
     public String getUserId() {
         return userId;
+    }
+
+    public Boolean getAvail() {
+        return avail;
     }
 
     public String getPosition() {
@@ -74,15 +79,16 @@ public class Logged_User {
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(sql);
             while (res.next()) {
-                userName = res.getString(4);
+                userName = res.getString(5);
                 userId = res.getString(1);
                 password = res.getString(2);
-                email = res.getString(5);
-                contact = res.getInt(7);
-                nic = res.getString(8);
-                position = res.getString(6);
+                email = res.getString(6);
+                contact = res.getInt(8);
+                nic = res.getString(9);
+                position = res.getString(7);
+                avail=res.getBoolean(3);
 //                password=res.getString(6)
-                System.out.println(userId+userName+email+contact+position+nic);
+               // System.out.println(userId+userName+email+contact+position+nic);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Logged_User.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,4 +111,13 @@ public class Logged_User {
         }
         querry();
     }
+
+
+    public void fill(String id) {
+        this.loggedUser=id;
+        
+        System.out.println("instant id is: "+userId);
+        querry();
+    }    
+    
 }
